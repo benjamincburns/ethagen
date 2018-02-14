@@ -1,5 +1,5 @@
 {
-  "name": "wallet",
+  "name": "ethagen",
   "version": "0.0.1",
   "description": "A simple command line tool for generating Ethereum wallets from bip39 mnemonics.",
   "main": "index.js",
@@ -15,5 +15,9 @@
     "ethereumjs-wallet": "^0.6.0",
     "qrcode-terminal": "^0.11.0",
     "yargs": "^11.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benjamincburns/simple-ethereum-wallet"
   }
 }
