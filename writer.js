@@ -34,15 +34,13 @@ class WalletWriter {
       describe: 'The number of accounts to generate from the bip39 mnemonic',
       demandOption: false
     })
-    .option('p', {
-      alias: 'printPublicKey',
+    .option('printPublicKey', {
       default: defaultPrintPublicKey,
       boolean: true,
       describe: 'Whether or not to print the public key to the console',
       demandOption: false
     })
-    .option('k', {
-      alias: 'printPrivateKey',
+    .option( 'printPrivateKey', {
       default: defaultPrintPrivateKey,
       boolean: true,
       describe: 'Whether or not to print the private key to the console',
