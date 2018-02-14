@@ -4,6 +4,9 @@ Ethereum Account Generator -> Ethagen
 A stupid simple command-line utility to generate Ethereum accounts from bip39 mnemonics. Prints QR codes by default so that addresses are easily scannable.
 
 ### Example Output
+
+QR Code looks like crap here, but scans fine when shown in a terminal.
+
 ```
 HD Path: m/44'/60'/0'/0/$index
 Mnemonic: artwork utility pig gravity camera wheat need gentle carpet desert fun track genre fatal crater tongue melody sun income fabric exist electric milk mystery
