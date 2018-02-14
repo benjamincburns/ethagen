@@ -1,13 +1,13 @@
 {
   "name": "wallet",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "A simple command line tool for generating Ethereum wallets from bip39 mnemonics.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"🤣\""
   },
-  "author": "",
+  "author": "Benjamin C Burns",
   "license": "MIT",
   "dependencies": {
     "bip39": "^2.5.0",
