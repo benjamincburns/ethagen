@@ -19,6 +19,44 @@ class WalletWriter {
     this.log = options.log || defaultLog
   }
 
+  static initArgs(yargs) {
+    return yargs.option('s', {
+      alias: 'silent',
+      default: defaultSilent,
+      boolean: true,
+      describe: 'if true, no output will be produced',
+      demandOption: false
+    })
+    .option('n', {
+      alias: 'accountPrintCount',
+      default: defaultAccountPrintCount,
+      number: true,
+      describe: 'The number of accounts to generate from the bip39 mnemonic',
+      demandOption: false
+    })
+    .option('p', {
+      alias: 'printPublicKey',
+      default: defaultPrintPublicKey,
+      boolean: true,
+      describe: 'Whether or not to print the public key to the console',
+      demandOption: false
+    })
+    .option('k', {
+      alias: 'printPrivateKey',
+      default: defaultPrintPrivateKey,
+      boolean: true,
+      describe: 'Whether or not to print the private key to the console',
+      demandOption: false
+    })
+    .option('q', {
+      alias: 'printQrCode',
+      default: defaultPrintQrCode,
+      boolean: true,
+      describe: 'Whether or not to print a QR code for each address to the console',
+      demandOption: false
+    })
+  }
+
   writeAccount(account) {
     if(this.silent) return
 

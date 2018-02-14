@@ -16,6 +16,33 @@ class Wallet {
     this._wallet = hdkey.fromMasterSeed(bip39.mnemonicToSeed(this.mnemonic))
   }
 
+  static initArgs(yargs) {
+    return yargs.option('p', {
+      alias: 'hdPath',
+      default: defaultHdPath,
+      describe: 'The hierarchical deterministic (HD) path to use when generating addresses from the PRNG seed',
+      demandOption: false
+    })
+    .option('e', {
+      alias: 'entropyBits',
+      default: defaultEntropyBits,
+      number: true,
+      describe: 'The number of bits of entropy to be used when generating the bip39 mnemonic. Must be >8 and a power of two.',
+      // fast bitwise test for powers of two
+      // powers of two have only one set bit in pos 2^n (e.g. 32 = 0010 0000)
+      // subtracting 1 from a power of two gives you set bits in pos 0..n-1
+      // a bitwise and between a power of two and its value minus 1 must therefore be zero
+      check: val => val >= 8 && (val & (val - 1)) === 0,
+      demandOption: false
+    })
+    .option('m', {
+      alias: 'mnemonic',
+      describe: 'Use this argument to specify a mnemonic rather than generating one from random bits.',
+      string: true,
+      demandOption: false
+    })
+  }
+
   getAccount(index) {
     const acct = this._wallet.derivePath(`${this.hdPath}${index}`)
 
