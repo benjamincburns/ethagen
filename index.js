@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const yargs = require('yargs')
 const Wallet = require('./wallet')
 const WalletWriter = require('./writer')
