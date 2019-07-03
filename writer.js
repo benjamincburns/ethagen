@@ -6,6 +6,7 @@ const defaultPrintPublicKey = false
 const defaultPrintPrivateKey = false
 const defaultPrintQrCode = true
 const defaultSmallQrCode = true
+const defaultJsonOutput = false
 const defaultLog = console.log
 
 class WalletWriter {
@@ -16,6 +17,7 @@ class WalletWriter {
     this.printPrivateKey = options.printPrivateKey !== undefined ? options.printPrivateKey : defaultPrintPrivateKey
     this.printQrCode = options.printQrCode !== undefined ? options.printQrCode : defaultPrintQrCode
     this.smallQrCode = options.smallQrCode !== undefined ? options.smallQrCode : defaultSmallQrCode
+    this.json = options.json !== undefined ? options.json : defaultJsonOutput
     this.log = options.log || defaultLog
   }
 
@@ -51,6 +53,13 @@ class WalletWriter {
       default: defaultPrintQrCode,
       boolean: true,
       describe: 'Whether or not to print a QR code for each address to the console',
+      demandOption: false,
+    })
+    .option('j', {
+      alias: 'json',
+      default: defaultJsonOutput,
+      boolean: true,
+      describe: 'Prints accounts in a JSON object',
       demandOption: false
     })
   }
@@ -80,14 +89,37 @@ class WalletWriter {
   writeDetails(wallet) {
     if(this.silent) return
 
-    this.log(`HD Path: ${wallet.hdPath}$index`)
-    this.log(`Mnemonic: ${wallet.mnemonic}`)
-    let count = this.accountPrintCount
-    for (let i = 0; i < count; i++) {
-      this.writeAccount(wallet.getAccount(i))
+    if (this.json) {
+      this.writeDetailsJson(wallet)
+    } else {
+      this.writeDetailsDefault(wallet)
     }
     this.log('')
   }
+
+  writeDetailsJson(wallet) {
+    const output = {
+      mnemonic: wallet.mnemonic,
+      hdPath: wallet.hdPath,
+      accounts: range(this.accountPrintCount).map((i) => wallet.getAccount(i))
+    }
+
+    this.log(
+      JSON.stringify(output, null, 2)
+    )
+  }
+
+  writeDetailsDefault(wallet) {
+    this.log(`HD Path: ${wallet.hdPath}$index`)
+    this.log(`Mnemonic: ${wallet.mnemonic}`)
+    for (let i = 0; i < this.accountPrintCount; i++) {
+      this.writeAccount(wallet.getAccount(i))
+    }
+  }
+}
+
+function range(i) {
+  return Array.from(Array(i).keys())
 }
 
 module.exports = exports = WalletWriter
