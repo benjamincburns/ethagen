@@ -10,11 +10,11 @@
   "author": "Benjamin C Burns",
   "license": "MIT",
   "dependencies": {
-    "bip39": "^2.5.0",
-    "ethereumjs-util": "^5.1.3",
-    "ethereumjs-wallet": "^0.6.0",
-    "qrcode-terminal": "^0.11.0",
-    "yargs": "^11.0.0"
+    "bip39": "^3.0.3",
+    "ethereumjs-util": "^7.0.8",
+    "ethereumjs-wallet": "^1.0.1",
+    "qrcode-terminal": "^0.12.0",
+    "yargs": "^16.2.0"
   },
   "bin": {
     "ethagen": "./index.js"

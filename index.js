@@ -9,15 +9,19 @@ module.exports.WalletWriter = WalletWriter
 
 // handle case where we're not a library, but a command-line tool
 if (require.main === module) {
-  let y = Wallet.initArgs(yargs)
-  let options = WalletWriter.initArgs(y)
-  .showHelpOnFail(false, 'Specify --help for available options') 
-  .help('h')
-  .alias('h', 'help')
-  .parse()
+  (async () => {
+    let y = Wallet.initArgs(yargs)
+    let options = WalletWriter.initArgs(y)
+      .showHelpOnFail(false, 'Specify --help for available options') 
+      .help('h')
+      .alias('h', 'help')
+      .parse()
 
-  let wallet = new Wallet(options)
-  let writer = new WalletWriter(options)
-  writer.writeDetails(wallet)
+    let wallet = new Wallet(options)
+    await wallet.init();
+    let writer = new WalletWriter(options)
+
+    writer.writeDetails(wallet)
+  })()
 }
 

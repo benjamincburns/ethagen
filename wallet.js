@@ -1,4 +1,4 @@
-const hdkey = require('ethereumjs-wallet/hdkey')
+const hdkey = require('ethereumjs-wallet/dist/hdkey').default
 const crypto = require('crypto')
 const bip39 = require('bip39')
 const utils = require('ethereumjs-util')
@@ -13,7 +13,10 @@ class Wallet {
     this.entropyBits = options.entropyBits || defaultEntropyBits
     this.mnemonic = options.mnemonic || bip39.entropyToMnemonic(crypto.randomBytes(this.entropyBits/8).toString('hex'))
 
-    this._wallet = hdkey.fromMasterSeed(bip39.mnemonicToSeed(this.mnemonic))
+  }
+
+  async init() {
+    this._wallet = hdkey.fromMasterSeed(await bip39.mnemonicToSeed(this.mnemonic))
   }
 
   static initArgs(yargs) {
